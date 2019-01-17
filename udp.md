@@ -4,18 +4,48 @@
 ### 工作流程
 server: socket()->bind()->recvfrom()->sendto()->close()  
 client: socket()->sendto()->recvfrom()->close()
+
+服务器流程主要分为下述6个部分，即建立套接字、设置套接字地址参数、进行端口绑定、接收数据、发送数据、关闭套接字等。
+
+(1)建立套接字文件描述符，使用函数socket()，生成套接字文件描述符。
+
+(2)设置服务器地址和侦听端口，初始化要绑定的网络地址结构。
+
+(3)绑定侦听端口，使用bind()函数，将套接字文件描述符和一个地址类型变量进行绑定。
+
+(4)接收客户端的数据，使用recvfrom()函数接收客户端的网络数据。
+
+(5)向客户端发送数据，使用sendto()函数向服务器主机发送数据。
+
+(6)关闭套接字，使用close()函数释放资源。UDP协议的客户端流程
+
+UDP协议的客户端流程
+
+UDP协议的客户端流程分为套接字建立、设置目的地址和端口、向服务器发送数据、从服务器接收数据、关闭套接字等5个部分。流程如下：
+
+(1)建立套接字文件描述符，socket()；
+
+(2)设置服务器地址和端口，struct sockaddr；
+
+(3)向服务器发送数据，sendto()；
+
+(4)接收服务器的数据，recvfrom()；
+
+(5)关闭套接字，close()。
+
 ### 主要函数
 - int socket(int domain,int type,int protocol)   
 domain=AF_INET type=SOCK_DGRAM    protocol=0    
 - sendto(intsockfd,constvoid*buf, size_t len,int flags,conststructsockaddr  
-   \*dest_addr, socklen_t addrlen)   
+   \*dest_addr, socklen_t addrlen)  基于UDP发送数据报 
 sockfd:正在监听端口的套接口文件描述符   buf：发送缓冲区  
 len:发送缓冲区的大小，单位是字节   flags:0   dest_addr:z指向接收数据的主机地址  
 addrlen:地址长度  
 - recvfrom(int sockfd,void* buf, size_t len,int flags,struct sockaddr \*src_addr,   
-  socklen_t \*addrlen)  
-- bind (int sockfd,const structsock addr* my_addr, socklen_t addrlen)  
-  my_addr:要绑定的IP和端口  
+  socklen_t \*addrlen)  从UDP接收数据 
+- bind (int sockfd,const structsock addr* my_addr, socklen_t addrlen) 
+  bind():将socket文件描述符与一个地址类型变量进行绑定
+  my_addr:要绑定的IP和端口   
 
 ### 主要程序
 ```C
